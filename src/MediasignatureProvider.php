@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Heddiyoussouf\Mediasignature;
 use Illuminate\Support\ServiceProvider;
 class MediasignatureProvider extends ServiceProvider{
