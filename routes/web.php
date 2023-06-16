@@ -1,6 +1,5 @@
 <?php
-
-use Heddiyoussouf\Mediasignature\Mediasignature;
+use Heddiyoussouf\Mediasignature\Facades\Mediasignature;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/good', function () {
-    $x= new Mediasignature();
-    return $x->greet("okkkkkk");
-});
+Route::get('/{path}', function ($path) {
+    return response()->file(public_path(Mediasignature::decrypt($path)));
+})->name("mediasignature")->middleware('signed');

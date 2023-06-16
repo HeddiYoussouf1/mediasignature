@@ -12,6 +12,7 @@ return [
     | Supported: "file"
     |
     */
-
+    "temporary"=>true,
     "ttl"=>60,
+    "encrypt"=>true,
 ];
