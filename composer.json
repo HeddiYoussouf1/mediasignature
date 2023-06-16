@@ -1,0 +1,22 @@
+{
+    "name": "heddiyoussouf/mediasignature",
+    "autoload": {
+        "psr-4": {
+            "Heddiyoussouf\\Mediasignature\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HeddiYoussouf1",
+            "email": "heddiyoussouf@gmail.com"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Heddiyoussouf\\Mediasignature\\MediasignatureProvider"
+            ]
+        }
+    }
+}
