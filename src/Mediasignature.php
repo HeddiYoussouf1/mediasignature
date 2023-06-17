@@ -3,14 +3,15 @@ namespace Heddiyoussouf\Mediasignature;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 class Mediasignature{
-    public function wrapForMultiple(array $uris):array{
+    public function wrapForMultiple(array $uris,$store_type=null):array{
         $array=[];
         foreach($uris as $uri){
-            array_push($array,$this->wrap($uri));
+            array_push($array,$this->wrap($uri,$store_type));
         }
         return $array;
     }
-   public function wrap(string $uri){
+   public function wrap(string $uri,$store_type=null){
+    $store_type=$store_type??config("mediasignature.store_type");
     $encrypted_uri=$this->encrypt($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
