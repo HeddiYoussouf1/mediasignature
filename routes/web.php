@@ -14,13 +14,15 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/{path}/{type}', function ($path,$type) {
-    if($type==="public"){
-        dump("1");
-        return response()->file(public_path(Mediasignature::decrypt($path)));
-    }
+Route::get('/{path}/p', function ($path) {
+
+    return response()->file(public_path(Mediasignature::decrypt($path)));
+
+})->name("public_mediasignature")->middleware('signed');
+Route::get('/{path}/st', function ($path) {
+
     $file = Storage::get($path);
     $fileMimeType = Storage::mimeType($path);
-    dump("2");
+
     return  response($file, 200, ['Content-Type' => $fileMimeType]);
 })->name("mediasignature")->middleware('signed');

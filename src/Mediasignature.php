@@ -16,9 +16,9 @@ class Mediasignature{
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
-        return URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$store_type]);
+        return URL::temporarySignedRoute($store_type==="public"?'public_mediasignature':'mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$store_type]);
     }else{
-         return URL::signedRoute('mediasignature',["path"=>$encrypted_uri,"type"=>$store_type]);
+         return URL::signedRoute($store_type==="public"?'public_mediasignature':'mediasignature',["path"=>$encrypted_uri,"type"=>$store_type]);
     }
    }
    protected function encrypt(string $uri):string{
@@ -35,4 +35,5 @@ class Mediasignature{
     }
     return $uri;
    }
+
 }
