@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/{path}', function ($path) {
-    if(Mediasignature::getStorageType()==="public"){
+    if(config("mediasignature.store_type")==="public"){
         return response()->file(public_path(Mediasignature::decrypt($path)));
+    }elseif(config("mediasignature.store_type")==="public"){
+        $path=Mediasignature::decrypt($path);
+        $file = Storage::get($path);
+        $fileMimeType = Storage::mimeType($path);
+        return  response($file, 200, ['Content-Type' => $fileMimeType]);
     }
-    $path=Mediasignature::decrypt($path);
-    $file = Storage::get($path);
-    $fileMimeType = Storage::mimeType($path);
-    return  response($file, 200, ['Content-Type' => $fileMimeType]);
+    return response("",400);
 })->name("mediasignature")->middleware('signed');

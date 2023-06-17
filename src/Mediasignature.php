@@ -1,16 +1,11 @@
 <?php
 namespace Heddiyoussouf\Mediasignature;
+
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 class Mediasignature{
-    public $type=null;
-    public function __construct()
-    {
-        $this->type=config("mediasignature.store_type");
-    }
-    public function getStorageType():string {
-        return $this->type;
-    }
+
     public function wrapForMultiple(array $uris,$store_type=null):array{
         $array=[];
         foreach($uris as $uri){
@@ -19,15 +14,18 @@ class Mediasignature{
         return $array;
     }
    public function wrap(string $uri,$store_type=null):string{
-    $this->type=is_null($store_type)?config("mediasignature.store_type"):null;
+    $type=config("mediasignature.store_type");
+    $this->setStorageType($store_type);
     $encrypted_uri=$this->encrypt($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
-        return URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri]);
+        $url= URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri]);
     }else{
-         return URL::signedRoute('mediasignature',["path"=>$encrypted_uri]);
+         $url= URL::signedRoute('mediasignature',["path"=>$encrypted_uri]);
     }
+    $this->setStorageType($type);
+    return $url;
    }
    protected function encrypt(string $uri):string{
     $encrypt=config("mediasignature.encrypt");
@@ -42,6 +40,11 @@ class Mediasignature{
         return Crypt::decryptString($uri);
     }
     return $uri;
+   }
+   protected function setStorageType($value){
+    if(!is_null($value)){
+        Config::set("mediasignature.store_type",$value);
+    }
    }
 
 
