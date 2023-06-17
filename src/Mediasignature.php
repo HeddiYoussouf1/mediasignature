@@ -14,17 +14,15 @@ class Mediasignature{
         return $array;
     }
    public function wrap(string $uri,$store_type=null):string{
-    $type=config("mediasignature.store_type");
-    $this->setStorageType($store_type);
+    $type=is_null($store_type)?config("mediasignature.store_type"):null;
     $encrypted_uri=$this->encrypt($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
-        $url= URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri]);
+        $url= URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$type]);
     }else{
-         $url= URL::signedRoute('mediasignature',["path"=>$encrypted_uri]);
+         $url= URL::signedRoute('mediasignature',["path"=>$encrypted_uri,"type"=>$type]);
     }
-    $this->setStorageType($type);
     return $url;
    }
    protected function encrypt(string $uri):string{
@@ -41,11 +39,7 @@ class Mediasignature{
     }
     return $uri;
    }
-   protected function setStorageType($value){
-    if(!is_null($value)){
-        Config::set("mediasignature.store_type",$value);
-    }
-   }
+
 
 
 }

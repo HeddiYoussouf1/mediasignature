@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/{path}', function ($path) {
-    if(config("mediasignature.store_type")==="public"){
+Route::get('/{path}/{type}', function ($path,$type) {
+    if($type==="public"){
         return response()->file(public_path(Mediasignature::decrypt($path)));
-    }elseif(config("mediasignature.store_type")==="public"){
+    }elseif($type==="storage"){
         $path=Mediasignature::decrypt($path);
         $file = Storage::get($path);
         $fileMimeType = Storage::mimeType($path);
