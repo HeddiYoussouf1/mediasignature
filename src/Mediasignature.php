@@ -6,7 +6,7 @@ class Mediasignature{
     public $type=null;
     public function __construct()
     {
-        $type=config("mediasignature.store_type");
+        $this->type=config("mediasignature.store_type");
     }
     public function getStorageType():string {
         return $this->type;
@@ -19,7 +19,7 @@ class Mediasignature{
         return $array;
     }
    public function wrap(string $uri,$store_type=null):string{
-    $this->type=$store_type ?? config("mediasignature.store_type");
+    $this->type=is_null($store_type)?config("mediasignature.store_type"):null;
     $encrypted_uri=$this->encrypt($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
