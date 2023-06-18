@@ -1,5 +1,7 @@
 {
     "name": "heddiyoussouf/mediasignature",
+    "description": "mediasignature is an essential tool for applications dealing with sensitive or confidential images, private image galleries, or scenarios where controlled access to images is required. It provides a seamless integration with Laravel's routing and authentication systems, making it easy to incorporate secure image delivery into your existing application.",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "Heddiyoussouf\\Mediasignature\\": "src/"
@@ -11,7 +13,9 @@
             "email": "heddiyoussouf@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^8.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
