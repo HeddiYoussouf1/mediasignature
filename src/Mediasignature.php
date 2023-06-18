@@ -48,15 +48,13 @@ class Mediasignature{
     if($encrypt){
         return $this->encrypt($path);
     }
-    return urlencode($path);
+    return str_replace("/", "$$", $path);
 }
 public function reversePath ($path) :string {
     $encrypt=config('mediasignature.encrypt');
     if($encrypt){
         return Mediasignature::decrypt($path);
     }
-    return urldecode($path);
-
-
+    return str_replace("$$", "/", $path);
 }
 }
