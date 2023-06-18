@@ -1,7 +1,5 @@
 <?php
 namespace Heddiyoussouf\Mediasignature;
-
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 class Mediasignature{
@@ -14,14 +12,14 @@ class Mediasignature{
         return $array;
     }
    public function wrap(string $uri,$store_type=null):string{
-    $type=is_null($store_type)?config("mediasignature.store_type"):null;
+    $type=$this->setStoreType($store_type);
     $encrypted_uri=$this->encrypt($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
-        $url= URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$type]);
+        $url= URL::temporarySignedRoute('mediasignature1', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$type]);
     }else{
-         $url= URL::signedRoute('mediasignature',["path"=>$encrypted_uri,"type"=>$type]);
+         $url= URL::signedRoute('mediasignature1',["path"=>$encrypted_uri,"type"=>$type]);
     }
     return $url;
    }
@@ -39,7 +37,10 @@ class Mediasignature{
     }
     return $uri;
    }
-
-
-
+   protected function setStoreType($value) : string {
+        if(is_null($value)){
+            return config("mediasignature.store_type");
+        }
+        return $value;
+   }
 }
