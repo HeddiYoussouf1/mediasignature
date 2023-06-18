@@ -4,9 +4,6 @@ namespace Heddiyoussouf\Mediasignature\Http\Controllers;
 use Heddiyoussouf\Mediasignature\Facades\Mediasignature;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
-
-use function PHPUnit\Framework\throwException;
-
 class MediasignatureController extends Controller
 {
 

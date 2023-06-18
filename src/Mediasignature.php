@@ -17,9 +17,9 @@ class Mediasignature{
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
-        $url= URL::temporarySignedRoute('mediasignature1', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$type]);
+        $url= URL::temporarySignedRoute('mediasignature', now()->addMinutes($ttl), ['path' => $encrypted_uri,"type"=>$type]);
     }else{
-         $url= URL::signedRoute('mediasignature1',["path"=>$encrypted_uri,"type"=>$type]);
+         $url= URL::signedRoute('mediasignature',["path"=>$encrypted_uri,"type"=>$type]);
     }
     return $url;
    }
