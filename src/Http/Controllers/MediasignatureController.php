@@ -10,10 +10,10 @@ class MediasignatureController extends Controller
     public function getFile($path,$type)
     {
         if($type==="public"){
-            return response()->file(public_path(Mediasignature::decrypt($path)));
+            return response()->file(public_path(Mediasignature::reversePath($path)));
         }else{
             $type==="storage";
-            $path=Mediasignature::decrypt($path);
+            $path=Mediasignature::reversePath($path);
             $file = Storage::get($path);
             $fileMimeType = Storage::mimeType($path);
             return  response($file, 200, ['Content-Type' => $fileMimeType]);

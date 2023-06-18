@@ -13,7 +13,7 @@ class Mediasignature{
     }
    public function wrap(string $uri,$store_type=null):string{
     $type=$this->setStoreType($store_type);
-    $generated_path=$this->generate_path($uri);
+    $generated_path=$this->generatePath($uri);
     $temporary=config("mediasignature.temporary");
     if($temporary){
         $ttl=config("mediasignature.ttl");
@@ -43,14 +43,14 @@ class Mediasignature{
         }
         return $value;
    }
-   public function generate_path ($path) :string {
+   public function generatePath ($path) :string {
     $encrypt=config('mediasignature.encrypt');
     if($encrypt){
         return $this->encrypt($path);
     }
     return urlencode($path);
 }
-public function reverse_path ($path) :string {
+public function reversePath ($path) :string {
     $encrypt=config('mediasignature.encrypt');
     if($encrypt){
         return Mediasignature::decrypt($path);
