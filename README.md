@@ -65,6 +65,7 @@ In Mediasignature, there are two common methods for wrapping media files. Here's
     
 
 >>$file = MediaFile::find($id);
+>>
 >>return Mediasignature::wrap($file->path);
 
 This approach utilizes the default configuration specified in the config/mediasignature.php file. The wrap() method is called with the file path as the parameter, and it returns a wrapped version of the file path (url).
@@ -74,6 +75,7 @@ This approach utilizes the default configuration specified in the config/mediasi
 
 
 >>$file = MediaFile::find($id);
+>>
 >>return Mediasignature::wrap($file->path, $ttl, $filesystem, $disk);
 
 In this method, you can specify custom configuration options for wrapping the file:
@@ -86,6 +88,7 @@ This method allows you to override the default configuration for a specific file
 Additionally, you can use the Mediasignature::wrapForMultiple() method to  wrap multiple files at once:
 
 >>Mediasignature::wrapForMultiple($array_path)
+>>
 >>Mediasignature::wrapForMultiple($array_path, $ttl, $filesystem, $disk)
 
 These methods accept an array of file paths ($array_path) as the first parameter and provide options for customizing the wrapping process similar to the individual file wrapping method.
