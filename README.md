@@ -46,10 +46,10 @@ This approach involves moving the file directly to the public folder of your app
     Using the Filesystem:
 
 
->>$path = $request->file('image')->store('images');
->>// or
->>$path = Storage::disk('public')->putFile('images', $image);
->>MedfiaFile::create(["path" => $path]);
+>>>$path = $request->file('image')->store('images');
+>>>// or
+>>>$path = Storage::disk('public')->putFile('images', $image);
+>>>MedfiaFile::create(["path" => $path]);
 
 Laravel provides a filesystem API for file storage, which offers convenience and flexibility. You can use the $request->file()->store() method or the Storage::disk()->putFile() method to upload the file to the desired directory. After storing the file, you can create a new record in the MediaFile model and store the returned file path.
 
