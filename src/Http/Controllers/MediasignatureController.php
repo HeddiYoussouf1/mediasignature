@@ -7,16 +7,15 @@ use Illuminate\Support\Facades\Storage;
 class MediasignatureController extends Controller
 {
 
-    public function getFile($path,$type)
+    public function getFile($path,$disk=null)
     {
-        if($type==="public"){
+        if(is_null($disk)){
             return response()->file(public_path(Mediasignature::reversePath($path)));
         }else{
-            $type==="storage";
             $path=Mediasignature::reversePath($path);
-            $file = Storage::get($path);
-            $fileMimeType = Storage::mimeType($path);
-            return  response($file, 200, ['Content-Type' => $fileMimeType]);
+            $file = Storage::disk($disk)->get($path);
+            $mimeType = Storage::disk($disk)->mimeType($path);
+            return  response($file, 200, ['Content-Type' => $mimeType]);
         }
 
     }
