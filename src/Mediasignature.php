@@ -39,7 +39,7 @@ class Mediasignature{
         return $value;
    }
    protected function setDisk($value,$filesystem) {
-    $filesystem=!$this->setFilesystem($filesystem);
+    $filesystem=$this->setFilesystem($filesystem);
     if(!$filesystem){
         return null;
     }elseif($filesystem && is_null($value)){
