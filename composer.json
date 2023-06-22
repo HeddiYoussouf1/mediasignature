@@ -1,6 +1,6 @@
 {
     "name": "heddiyoussouf/mediasignature",
-    "description": "mediasignature is an essential tool for applications dealing with sensitive or confidential images, private image galleries, or scenarios where controlled access to images is required. It provides a seamless integration with Laravel's routing and authentication systems, making it easy to incorporate secure image delivery into your existing application.",
+    "description": "Mediasignature is a powerful and versatile package designed to provide image tokenization and access control capabilities. With Mediasignature, you can securely tokenize images and limit access to them for a specified period, adding an extra layer of protection to your valuable visual content",
     "license": "proprietary",
     "autoload": {
         "psr-4": {
@@ -23,5 +23,5 @@
             ]
         }
     }
-    
+
 }
